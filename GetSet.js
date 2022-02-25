@@ -18,7 +18,7 @@ function changeValue(event){
     setInterval(function(){
     variable.firstName = Math.floor(Math.random() * (100-1)+1);
     
-    document.getElementById("value").innerHTML = "Value Generated: " + variable.firstName;
+    document.getElementById("value").innerHTML = variable.firstName;
     
 },10000);
 
