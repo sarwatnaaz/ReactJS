@@ -1,0 +1,24 @@
+button {
+    border-radius: 8px;
+    background-color: white;
+    color: black;
+}
+
+.header{
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    background-color: aquamarine;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
