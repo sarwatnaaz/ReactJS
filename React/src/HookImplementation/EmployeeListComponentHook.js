@@ -19,12 +19,10 @@ export default function EmployeeListComponentHook(){
 
 
     function ShowEmployee(){
-        useEffect(() => {
         var dataPromise = Axios.get(url);
         dataPromise.then((response) => {
             setElement(response.data)
         })
-    })
     }
 
     const saveEmployee = (e) => {
@@ -39,8 +37,18 @@ export default function EmployeeListComponentHook(){
         }
 
         function updateEmployee(event){
-            event.preventDefault();
-            Axios.put("https://localhost:5001/api/Employee/" + event.target.id, {
+            var dataPromise = Axios.get("https://localhost:5001/api/Employee/" + event.target.id);
+            dataPromise.then((response) => {
+                setEid(response.data.eid);
+                setEname(response.data.ename);
+                setDesignation(response.data.designation);
+                setSalary(response.data.salary);
+            })
+            }
+
+            const handleSubmit = (event) => {
+                event.preventDefault();
+            Axios.put("https://localhost:5001/api/Employee/" + eid, {
                 eid,
                 ename,
                 designation,
@@ -48,13 +56,11 @@ export default function EmployeeListComponentHook(){
             }).then(response => 
                 console.log('Updating Data', response)).catch(err => console.log(err))
             .then(() => {
-                alert("Employee will Update");
-                    var dataPromise = Axios.get(url);
-                    dataPromise.then((response) => {
-                        setElement(response.data);
-                    })
+                alert("Employee will Update");                
+                    ShowEmployee();
                 })
             }
+        
         
 
         function deleteEmployee(event) {
@@ -88,7 +94,7 @@ export default function EmployeeListComponentHook(){
                 <input type="text" name="ename" placeholder='Employee Name' value={ename} onChange={(e)=>{setEname(e.target.value)}}/><br></br>
                 <input type="text" name="designation" placeholder='Designation' value={designation} onChange={(e)=>{setDesignation(e.target.value)}}/><br></br>
                 <input type="text" name="salary" placeholder='Salary' value={salary} onChange={(e)=>{setSalary(e.target.value)}}/><br></br>
-                <button type="button" id={eid} onClick={updateEmployee}>Update</button>
+                <button type="button" id={eid} onClick={handleSubmit}>Update</button>
             </div><br></br>
             </div>
             <div className="info">
